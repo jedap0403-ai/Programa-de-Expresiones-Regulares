@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto - Expresiones Regulares</title>
+    <!-- PROGRAMA 100% OFFLINE Y NATIVO. No requiere librerías externas ni internet. -->
+    <style>
+        :root {
+            --primary-color: #0A2342;
+            --secondary-color: #1768AC;
+            --accent-color: #25CE93;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-top: 6px solid var(--secondary-color);
+        }
+
+        .header-info h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 26px;
+        }
+
+        .header-info p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        .profile-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px dashed #ccc;
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--secondary-color);
+            background-color: #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 22px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .instructions-box {
+            background-color: #eef2f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--secondary-color);
+            margin-bottom: 25px;
+        }
+        
+        .instructions-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 17px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            background-color: #fafafa;
+        }
+
+        button.action-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            width: 100%;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button.action-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f4f8fb;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            min-height: 80px;
+            color: #111;
+            font-size: 16px;
+        }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 12px; text-align: justify; }
+        code {
+            background-color: #eef2f5;
+            padding: 3px 7px;
+            border-radius: 4px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 14.5px;
+        }
+
+        @media (max-width: 768px) {
+            .header-card { flex-direction: column-reverse; text-align: center; }
+            .profile-section { margin-bottom: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-card">
+        <div class="header-info">
+            <h1>Proyecto: Expresiones Regulares</h1>
+            <p><strong>Alumno:</strong> Julian Emiliano Del Angel Pecina</p>
+            <p><strong>No. Control:</strong> 24500401</p>
+            <p><strong>Carrera:</strong> Ingeniería en Sistemas Computacionales</p>
+            <p><strong>Materia:</strong> Lenguajes y Autómatas 1</p>
+            <p><strong>Docente:</strong> Garizurieta Castillo Oscar Alberto</p>
+            <p><strong>Semestre:</strong> 5º &nbsp;&nbsp;&nbsp; <strong>Grupo:</strong> 1</p>
+        </div>
+        <div class="profile-section">
+            <!-- APUNTA EXACTAMENTE AL NOMBRE DE LA FOTO QUE TIENES EN TU CARPETA -->
+            <img id="fotoPerfil" src="WhatsApp Image 2026-09-02 at 2.49.46 PM.jpeg" alt="Foto de Julian" class="profile-pic" onerror="this.src='https://via.placeholder.com/150?text=Falta+foto.jpg'">
+        </div>
+    </div>
+
+    <!-- INFORMACIÓN EXACTA DEL MARCO TEÓRICO -->
+    <h2 class="section-title">1. Investigación Teórica</h2>
+    <div class="card">
+        <h3 style="color: var(--primary-color); margin-top: 0;">¿Qué es una Expresión Regular?</h3>
+        <p>En el ámbito de la teoría de lenguajes formales y la construcción de compiladores, una expresión regular es una secuencia de caracteres que define un patrón de búsqueda riguroso. Estas expresiones sirven para describir y delimitar matemáticamente los <strong>Lenguajes Regulares</strong>, permitiendo a los analizadores léxicos reconocer tokens válidos dentro de un código fuente o una cadena de texto.</p>
+        
+        <h3 style="color: var(--primary-color);">Operaciones Formales Básicas</h3>
+        <ul>
+            <li><strong>Concatenación:</strong> Consiste en la unión de símbolos o cadenas en secuencia estricta, colocando un elemento directamente después del otro. Por ejemplo, la concatenación de <code>a</code> y <code>b</code> da como resultado el patrón <code>ab</code>.</li>
+            <li><strong>Unión o Alternancia (|):</strong> Representa una elección lógica (OR). Permite que la cadena coincida con una opción u otra. Por ejemplo, la expresión <code>a|b</code> indica que se puede generar o aceptar una 'a' o una 'b', pero no ambas simultáneamente.</li>
+            <li><strong>Cerradura de Kleene (*):</strong> Es un operador de repetición que indica que el elemento o grupo anterior puede repetirse <strong>cero o más veces</strong>. Por ejemplo, la expresión <code>a*</code> puede generar la cadena vacía (denotada frecuentemente como λ o ε), 'a', 'aa', 'aaa', etc.</li>
+            <li><strong>Cerradura Positiva (+):</strong> Es similar a la Cerradura de Kleene, con la diferencia de que exige que el elemento aparezca <strong>al menos una vez</strong>, excluyendo así a la cadena vacía. Por ejemplo, la expresión <code>a+</code> genera 'a', 'aa', 'aaa', pero nunca una secuencia vacía.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-title">2. Programa Funcional (Generador de Cadenas)</h2>
+    <div class="card">
+        <h3 style="color: var(--secondary-color); margin-top: 0;">Convertidor: De Expresión Regular a Cadenas Válidas</h3>
+        
+        <div class="instructions-box">
+            <h4>📖 Guía de uso rápida (Paso a paso)</h4>
+            <p style="margin: 0; font-size: 14.5px;">Cualquier persona puede usar este programa siguiendo estos sencillos pasos:</p>
+            <ul style="margin-top: 8px; margin-bottom: 15px; font-size: 14.5px;">
+                <li><strong>Paso 1:</strong> Escribe un patrón matemático (expresión regular) en la caja de texto de abajo. No uses espacios a menos que formen parte del patrón.</li>
+                <li><strong>Paso 2:</strong> Da clic en el botón azul que dice "Generar Cadenas Válidas".</li>
+                <li><strong>Paso 3:</strong> El programa leerá las reglas y construirá en tiempo real cadenas que cumplen estrictamente con tu expresión de forma verificable.</li>
+            </ul>
+            <p style="margin: 0; font-size: 14px; color: #555;"><strong>Ejemplos reales que puedes probar:</strong> 
+            <br>• Escribe <code>a|b</code> y generará solo la letra "a" o la letra "b".
+            <br>• Escribe <code>(0|1)+</code> y generará secuencias binarias como 10, 01, 111, 000.
+            <br>• Escribe <code>a(bc)*</code> y generará una "a" seguida de repetidas "bc" (ej. a, abc, abcbc).</p>
+        </div>
+        
+        <div class="input-group">
+            <label>Ingresa tu Expresión Regular aquí:</label>
+            <input type="text" id="regexInput" placeholder="Ejemplo: (a|b)+c*" value="(0|1)+">
+        </div>
+        
+        <button class="action-btn" onclick="generarCadenas()">Generar Cadenas Válidas</button>
+        
+        <div id="cadenasResult" class="result-box">
+            <em style="color: #777;">Las cadenas generadas aparecerán aquí...</em>
+        </div>
+    </div>
+
+</div>
+
+<!-- CÓDIGO JS NATIVO -->
+<script>
+    function generarCadenas() {
+        const inputRegex = document.getElementById('regexInput').value;
+        const resultBox = document.getElementById('cadenasResult');
+        
+        if (!inputRegex.trim()) {
+            resultBox.innerHTML = "<span style='color: #d9534f; font-weight: bold;'>⚠️ Por favor, ingresa una expresión regular válida. No puedes dejar el campo vacío.</span>";
+            return;
+        }
+
+        let regex;
+        try {
+            regex = new RegExp('^(' + inputRegex + ')$');
+        } catch (error) {
+            resultBox.innerHTML = "<span style='color: #d9534f; font-weight: bold;'>⚠️ Error de sintaxis. Revisa que los paréntesis y operadores (+, *, |) estén acomodados correctamente.</span>";
+            return;
+        }
+
+        let chars = inputRegex.replace(/[^a-zA-Z0-9]/g, '');
+        if (chars.length === 0) chars = "ab01";
+        
+        let uniqueChars = "";
+        for (let i = 0; i < chars.length; i++) {
+            if (uniqueChars.indexOf(chars[i]) === -1) {
+                uniqueChars += chars[i];
+            }
+        }
+        
+        let resultados = [];
+        
+        if (regex.test("")) {
+            resultados.push("");
+        }
+
+        let queue = uniqueChars.split('');
+        let loops = 0;
+        
+        while (queue.length > 0 && resultados.length < 5 && loops < 50000) {
+            let actual = queue.shift();
+            loops++;
+            
+            if (regex.test(actual) && !resultados.includes(actual)) {
+                resultados.push(actual);
+            }
+            
+            if (actual.length < 8) {
+                for (let i = 0; i < uniqueChars.length; i++) {
+                    queue.push(actual + uniqueChars[i]);
+                }
+            }
+        }
+
+        if (resultados.length === 0) {
+            resultBox.innerHTML = "<span style='color: #d9534f; font-weight: bold;'>⚠️ No se encontraron cadenas de longitud corta que cumplan con esa regla.</span>";
+            return;
+        }
+
+        let htmlOut = "<strong style='color: var(--primary-color);'>Resultado - Cadenas generadas:</strong><br><br>";
+        for (let i = 0; i < resultados.length; i++) {
+            let displayStr = resultados[i] === "" ? "<em style='color:#888;'>(Cadena vacía o λ)</em>" : resultados[i];
+            htmlOut += (i + 1) + ". <code>" + displayStr + "</code><br>";
+        }
+        
+        resultBox.innerHTML = htmlOut;
+    }
+</script>
+</body>
+</html>
